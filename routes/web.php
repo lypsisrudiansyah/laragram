@@ -1,5 +1,7 @@
 <?php
 
+use App\Mail\NewUserWelcomeMail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,14 +13,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
+Route::get('/email', function () {
+	return new NewUserWelcomeMail();
+});
+
 Route::post('follow/{user}', 'FollowController@store');
 
+Route::get('/', 'PostController@index');
 Route::get('/p/create', 'PostController@create');
 Route::post('/p', 'PostController@store');
 Route::get('/p/{post}', 'PostController@show');
